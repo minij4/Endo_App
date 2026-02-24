@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ENGO_app</string>
+
+    <string name="onboarding_title">ENGO</string>
+    <string name="onboarding_subtitle">Let’s create your individual learning plan</string>
+    <string name="onboarding_start_button">Start</string>
+    <string name="onboarding_logo_content_description">ENGO app logo</string>
+
+</resources>
