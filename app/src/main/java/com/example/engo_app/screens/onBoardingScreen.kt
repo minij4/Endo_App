@@ -1,13 +1,11 @@
-package com.example.engo_app
+package com.example.engo_app.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -23,14 +21,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.engo_app.R
+import com.example.engo_app.navigation.NavRoutes
 import com.example.engo_app.ui.theme.ENGO_appTheme
 import com.example.engo_app.ui.theme.EngoBlue
 import com.example.engo_app.ui.theme.EngoGray
 
+
 @Composable
-fun EngoApp(
+fun onboardingScreen(
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
+    val routes = NavRoutes()
+
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -61,8 +66,9 @@ fun EngoApp(
         )
         Spacer(modifier = Modifier.weight(1f))
         Button(
+            // screen change
             onClick = {
-            //onClick()
+                navController.navigate(routes.Languages_Screen)
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = EngoBlue,
@@ -86,6 +92,6 @@ fun EngoApp(
 @Composable
 fun Preview() {
     ENGO_appTheme {
-        EngoApp()
+        //OnboardingScreen()
     }
 }

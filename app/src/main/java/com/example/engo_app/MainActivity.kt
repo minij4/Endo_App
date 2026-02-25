@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ENGO_appTheme {
-                //EngoApp()
+                //AppNavHost()
             }
         }
     }

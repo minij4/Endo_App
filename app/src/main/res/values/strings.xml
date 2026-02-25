@@ -6,4 +6,20 @@
     <string name="onboarding_start_button">Start</string>
     <string name="onboarding_logo_content_description">ENGO app logo</string>
 
+    <string name="english">English</string>
+    <string name="spanish">Spanish</string>
+    <string name="german">German</string>
+    <string name="french">French</string>
+    <string name="lithuanian">Lithuanian</string>
+    <string name="latvian">Latvian</string>
+    <string name="ukrainian">Ukrainian</string>
+
+    <string name="study">Study</string>
+    <string name="work">Work</string>
+    <string name="travel">Travel</string>
+    <string name="living_broad">Living abroad</string>
+    <string name="personal_development">Personal development</string>
+    <string name="friends">Friends</string>
+    <string name="relationship">Relationship</string>
+
 </resources>
