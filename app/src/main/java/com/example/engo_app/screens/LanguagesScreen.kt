@@ -1,5 +1,6 @@
 package com.example.engo_app.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,7 +29,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 
 import com.example.engo_app.data.Language
@@ -37,6 +44,7 @@ import com.example.engo_app.data.languages
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.engo_app.R
+import com.example.engo_app.data.mainLanguage
 import com.example.engo_app.navigation.NavRoutes
 import com.example.engo_app.ui.theme.ENGO_appTheme
 import com.example.engo_app.ui.theme.EngoBlue
@@ -49,6 +57,8 @@ fun LanguagesScreen(
     modifier: Modifier = Modifier
 ) {
     val routes = NavRoutes()
+    var selectedMainLanguage by remember { mutableStateOf<Language?>(null) }
+    var selectedLanguage by remember { mutableStateOf<Language?>(null) }
 
     Scaffold(
         bottomBar = {
@@ -71,8 +81,8 @@ fun LanguagesScreen(
                         .height(56.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.learning_language_button),
-                        style = MaterialTheme.typography.displayMedium
+                        text = stringResource(R.string.confirm_button),
+                        style = MaterialTheme.typography.titleMedium
                     )
                 }
             }
@@ -80,7 +90,7 @@ fun LanguagesScreen(
     ) { padding ->
 
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
                 .padding(30.dp)
@@ -95,7 +105,7 @@ fun LanguagesScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            LanguageItem(languages.first())
+            LanguageItem({selectedMainLanguage = mainLanguage},isSelected = selectedMainLanguage == mainLanguage, mainLanguage)
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -110,20 +120,33 @@ fun LanguagesScreen(
                 modifier = Modifier.weight(1f)
             ) {
                 items(languages) {
-                    LanguageItem(languages = it)
+                    LanguageItem({selectedLanguage = it},isSelected = selectedLanguage == it, languages = it)
                 }
             }
         }
     }
 }
 
+// LIST ITEM
 @Composable
 fun LanguageItem(
+    onClick: () -> Unit,
+    isSelected: Boolean,
     languages: Language,
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier
+        onClick = onClick,
+        shape = RoundedCornerShape(30.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = if (isSelected)
+                MaterialTheme.colorScheme.primaryContainer
+            else
+                MaterialTheme.colorScheme.surface
+        ),
+        border = if (isSelected)
+            BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
+        else null
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -154,4 +177,14 @@ fun LanguageItem(
     }
     Spacer(modifier = modifier.height(10.dp))
 }
+
+@Preview(showBackground = true)
+@Composable
+fun LanguagesScreenPreview() {
+    ENGO_appTheme {
+        val navController = rememberNavController()
+        LanguagesScreen(navController = navController)
+    }
+}
+
 

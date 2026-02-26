@@ -103,7 +103,7 @@ fun NotificationScreen(navController: NavController) {
             ) {
                 Text(
                     text = stringResource(R.string.notification_agree),
-                    style = MaterialTheme.typography.displayMedium
+                    style = MaterialTheme.typography.titleMedium
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -120,7 +120,7 @@ fun NotificationScreen(navController: NavController) {
             ) {
                 Text(
                     text = stringResource(R.string.notification_disagree),
-                    style = MaterialTheme.typography.displayMedium
+                    style = MaterialTheme.typography.titleMedium
                 )
             }
         }
@@ -150,14 +150,5 @@ fun BackButton(
             contentDescription = "Back",
             tint = Color.Black
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun Preview() {
-    ENGO_appTheme {
-        val navController = rememberNavController()
-        NotificationScreen(navController = navController)
     }
 }

@@ -78,7 +78,7 @@ fun MotivationScreen(navController: NavController) {
                         .height(56.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.learning_language_button),
+                        text = stringResource(R.string.confirm_button),
                         style = MaterialTheme.typography.displayMedium
                     )
                 }

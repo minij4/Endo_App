@@ -15,6 +15,14 @@ val Inter = FontFamily(
     Font(R.font.inter)
 )
 
+val Nunito = FontFamily(
+    Font(R.font.nunito_regular)
+)
+
+val NunitoBold = FontFamily(
+    Font(R.font.nunito_bold)
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(
@@ -26,25 +34,23 @@ val Typography = Typography(
     ) ,
 
     displayLarge = TextStyle(
-        fontFamily = InterBold,
-        fontWeight = FontWeight.Normal,
+        fontFamily = NunitoBold,
+        fontWeight = FontWeight.W900,
         fontSize = 32.sp
     ),
     displayMedium = TextStyle(
-        fontFamily = Inter,
+        fontFamily = NunitoBold,
         fontWeight = FontWeight.Bold,
         fontSize = 30.sp
     ),
     labelMedium = TextStyle(
-        fontFamily = Inter,
+        fontFamily = NunitoBold,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp
     ),
     displaySmall = TextStyle(
-        fontFamily = Inter,
+        fontFamily = NunitoBold,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp
-    ),
-
-
+    )
 )

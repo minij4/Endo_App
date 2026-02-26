@@ -14,10 +14,10 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = routes.onBoarding_Screen
+        startDestination = routes.OnBoarding_Screen
     ) {
-        composable(routes.onBoarding_Screen) {
-            onboardingScreen(navController)
+        composable(routes.OnBoarding_Screen) {
+            OnBoardingScreen(navController)
         }
 
         composable(routes.Languages_Screen) {

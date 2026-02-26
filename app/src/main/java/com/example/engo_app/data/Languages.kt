@@ -26,9 +26,8 @@ data class Language(
     @DrawableRes val languageIconResourceId: Int,
     @StringRes val languageNameId: Int,
 )
-
+val mainLanguage = Language(R.drawable.gb, R.string.english)
 val languages = listOf(
-    Language(R.drawable.gb, R.string.english),
     Language(R.drawable.fr, R.string.french),
     Language(R.drawable.de, R.string.german),
     Language(R.drawable.es, R.string.spanish),

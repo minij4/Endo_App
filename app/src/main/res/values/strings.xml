@@ -24,7 +24,7 @@
 
     <string name="learning_language_subtitle">You want to learn</string>
     <string name="translation_language_subtitle">Translation Language</string>
-    <string name="learning_language_button">Next</string>
+    <string name="confirm_button">Confirm</string>
 
     <string name="motivation_subtitle">What motivates you to learn english?</string>
 
