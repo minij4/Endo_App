@@ -53,6 +53,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.compose.ui.text)
+    implementation(libs.androidx.compose.remote.creation.core)
+    implementation(libs.androidx.compose.foundation.layout)
 
     testImplementation(libs.junit)
 

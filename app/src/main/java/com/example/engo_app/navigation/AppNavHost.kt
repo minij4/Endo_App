@@ -1,8 +1,10 @@
 package com.example.engo_app.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.*
 import com.example.engo_app.screens.*
+import com.example.engo_app.ui.theme.ENGO_appTheme
 
 
 @Composable
@@ -31,3 +33,4 @@ fun AppNavHost() {
         }
     }
 }
+

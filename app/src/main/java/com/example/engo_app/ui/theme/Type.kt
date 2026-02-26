@@ -33,7 +33,18 @@ val Typography = Typography(
     displayMedium = TextStyle(
         fontFamily = Inter,
         fontWeight = FontWeight.Bold,
+        fontSize = 30.sp
+    ),
+    labelMedium = TextStyle(
+        fontFamily = Inter,
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp
+    ),
+    displaySmall = TextStyle(
+        fontFamily = Inter,
+        fontWeight = FontWeight.Bold,
         fontSize = 18.sp
     ),
+
 
 )

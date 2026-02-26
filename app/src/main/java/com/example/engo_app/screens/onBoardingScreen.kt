@@ -1,5 +1,6 @@
 package com.example.engo_app.screens
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,6 +28,8 @@ import com.example.engo_app.navigation.NavRoutes
 import com.example.engo_app.ui.theme.ENGO_appTheme
 import com.example.engo_app.ui.theme.EngoBlue
 import com.example.engo_app.ui.theme.EngoGray
+import androidx.compose.ui.text.TextStyle
+import androidx.navigation.compose.rememberNavController
 
 
 @Composable
@@ -48,22 +51,22 @@ fun onboardingScreen(
         )
 
         Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = stringResource(R.string.onboarding_title),
-            style = MaterialTheme.typography.displayLarge,
-            modifier = Modifier.fillMaxWidth(0.7f),  // 70% screen width
-            textAlign = TextAlign.Center,
+        OnboardingText(
+            textRes = R.string.onboarding_title,
+            textStyle = MaterialTheme.typography.displayLarge,
             color = EngoBlue
         )
+
         Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = stringResource(R.string.onboarding_subtitle),
-            style = MaterialTheme.typography.displayMedium,
-            modifier = Modifier.fillMaxWidth(0.7f),  // 70% screen width
-            textAlign = TextAlign.Center,
+
+        OnboardingText(
+            textRes = R.string.onboarding_subtitle,
+            textStyle = MaterialTheme.typography.displaySmall,
             color = EngoGray
         )
+
+
+
         Spacer(modifier = Modifier.weight(1f))
         Button(
             // screen change
@@ -80,7 +83,7 @@ fun onboardingScreen(
         ) {
             Text(
                 text = stringResource(R.string.onboarding_start_button),
-                style = MaterialTheme.typography.displayMedium
+                style = MaterialTheme.typography.displaySmall
             )
         }
 
@@ -88,10 +91,20 @@ fun onboardingScreen(
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun Preview() {
-    ENGO_appTheme {
-        //OnboardingScreen()
-    }
+fun OnboardingText(
+    @StringRes textRes: Int,
+    textStyle: TextStyle,
+    color: Color,
+    widthFraction: Float = 0.7f,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = stringResource(textRes),
+        style = textStyle,
+        modifier = modifier.fillMaxWidth(widthFraction),
+        textAlign = TextAlign.Center,
+        color = color
+    )
 }
+
