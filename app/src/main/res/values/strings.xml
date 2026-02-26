@@ -26,7 +26,13 @@
     <string name="translation_language_subtitle">Translation Language</string>
     <string name="learning_language_button">Next</string>
 
-    <string name="motivation_subtitle">What motivate you to learn english?</string>
+    <string name="motivation_subtitle">What motivates you to learn english?</string>
+
+    <string name="notification_subtitle">I will remind you to practise so that it becomes a habit!</string>
+    <string name="notification_agreement">Allow Engo to send you notifications?</string>
+
+    <string name="notification_agree">Agree</string>
+    <string name="notification_disagree">Disagree</string>
 
 
 </resources>

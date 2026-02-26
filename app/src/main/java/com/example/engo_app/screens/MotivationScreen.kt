@@ -2,6 +2,7 @@ package com.example.engo_app.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -85,14 +86,16 @@ fun MotivationScreen(navController: NavController) {
         }
     ) { padding ->
 
+
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
                 .padding(30.dp)
         ) {
+            BackButton({ navController.popBackStack() })
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
                 Row(
                     modifier = Modifier,
@@ -102,7 +105,7 @@ fun MotivationScreen(navController: NavController) {
 
                     Image(
                         modifier = Modifier.size(dimensionResource(R.dimen.logo_pic_size_small)),
-                        painter = painterResource(R.drawable.engo_logo),
+                        painter = painterResource(R.drawable.engo_logo2),
                         contentDescription = "ENGO app logo"
                     )
 
@@ -166,14 +169,4 @@ fun MotivationItem(
         }
     }
     Spacer(modifier = Modifier.height(10.dp))
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun Preview() {
-    ENGO_appTheme {
-        val navController = rememberNavController()
-        MotivationScreen(navController = navController)
-    }
 }
