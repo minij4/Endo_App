@@ -61,7 +61,7 @@ fun OnBoardingScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 // LOGO TEXT
-                OnboardingText(
+                OnboardingTextItem(
                     textRes = R.string.onboarding_title,
                     textStyle = MaterialTheme.typography.displayLarge,
                     color = EngoBlue
@@ -71,7 +71,7 @@ fun OnBoardingScreen(
 
 
                 // subtitle text
-                OnboardingText(
+                OnboardingTextItem(
                     textRes = R.string.onboarding_subtitle,
                     textStyle = MaterialTheme.typography.displaySmall,
                     color = EngoGray
@@ -108,10 +108,10 @@ fun OnBoardingScreen(
 }
 
 @Composable
-fun OnboardingText(
+fun OnboardingTextItem(
     @StringRes textRes: Int,
     textStyle: TextStyle,
-    color: Color,
+    color: Color = Color.Unspecified,
     widthFraction: Float = 0.7f,
     modifier: Modifier = Modifier
 ) {
@@ -126,7 +126,7 @@ fun OnboardingText(
 
 @Preview(showBackground = true)
 @Composable
-fun onBoardingPreview() {
+fun OnBoardingScreenPreview() {
     ENGO_appTheme {
         val navController = rememberNavController()
         OnBoardingScreen(navController = navController)

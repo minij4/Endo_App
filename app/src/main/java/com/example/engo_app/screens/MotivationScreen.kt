@@ -54,7 +54,10 @@ import com.example.engo_app.ui.theme.ENGO_appTheme
 import com.example.engo_app.ui.theme.EngoBlue
 
 @Composable
-fun MotivationScreen(navController: NavController) {
+fun MotivationScreen(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
     val routes = NavRoutes()
 
     Scaffold(
@@ -79,23 +82,26 @@ fun MotivationScreen(navController: NavController) {
                 ) {
                     Text(
                         text = stringResource(R.string.confirm_button),
-                        style = MaterialTheme.typography.displayMedium
+                        style = MaterialTheme.typography.titleMedium
                     )
                 }
             }
         }
     ) { padding ->
 
-
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(padding)
                 .padding(30.dp)
         ) {
+            /// BUtton to go back
+
             BackButton({ navController.popBackStack() })
 
-            Spacer(modifier = Modifier.height(24.dp))
+            /// PROGRESS BAR (NEEED TO IMPLEMENT)
+
+            Spacer(modifier = Modifier.height(10.dp))
 
                 Row(
                     modifier = Modifier,
@@ -147,17 +153,13 @@ fun MotivationItem(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(dimensionResource(R.dimen.padding_small))
+                .padding(dimensionResource(R.dimen.padding_medium))
         ) {
             Image(
                 modifier = Modifier
-                    .size(dimensionResource(R.dimen.image_size))
+                    .size(dimensionResource(R.dimen.icon_size))
                 ,
                 painter = painterResource(motivations.motivationIconResourceId),
-
-                // Content Description is not needed here - image is decorative, and setting a null content
-                // description allows accessibility services to skip this element during navigation.
-
                 contentDescription = null
             )
             Text(
