@@ -9,7 +9,7 @@ It is android application generated with kotlin + compose for upwork.com site fo
 - Onboarding screen
 - Languages choosing (back-end not working yet)
 - Motivations topics choosing (back-end not working yet)
-- Notification agreement (back-end not working yet)
+- Notification agreement
 
 ---
 
@@ -18,7 +18,7 @@ It is android application generated with kotlin + compose for upwork.com site fo
 - Kotlin
 - Jetpack Compose
 - Material3
-- DataStore (Preferences) (not working yet)
+- DataStore (Preferences) (NOT EVERYTHING WORKS)
 
 ---
 
