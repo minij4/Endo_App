@@ -1,5 +1,6 @@
 package com.example.engo_app.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,10 +18,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.engo_app.R
+import com.example.engo_app.data.Language
 import com.example.engo_app.data.Motivation
 import com.example.engo_app.data.motivations
 import com.example.engo_app.navigation.NavRoutes
@@ -46,6 +55,7 @@ fun MotivationScreen(
 ) {
     val routes = NavRoutes()
 
+    val selectedMotivations = remember { mutableStateListOf<Motivation>() }
     Scaffold(
         // Confirm button on the bottom
         bottomBar = {
@@ -58,6 +68,7 @@ fun MotivationScreen(
                 Button(
                     onClick = {
                         navController.navigate(routes.Notification_Screen)
+
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = EngoBlue,
@@ -119,8 +130,18 @@ fun MotivationScreen(
             // Motivation items list
 
             LazyColumn(modifier = Modifier.weight(1f)) {
-                items(motivations) {
-                    MotivationItem(motivations = it)
+                items(motivations) { motivation ->
+                    MotivationItem(
+                        onClick = {
+                            if (selectedMotivations.contains(motivation)) {
+                                selectedMotivations.remove(motivation) // unselect
+                            } else {
+                                selectedMotivations.add(motivation) // select
+                            }
+                        },
+                        isSelected = selectedMotivations.contains(motivation),
+                        motivations = motivation
+                    )
                 }
             }
         }
@@ -130,31 +151,38 @@ fun MotivationScreen(
 // Motivation item composable
 @Composable
 fun MotivationItem(
+    onClick: () -> Unit,
     motivations: Motivation,
+    isSelected: Boolean,
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier
+        onClick = onClick,
+        shape = RoundedCornerShape(30.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = if (isSelected)
+                MaterialTheme.colorScheme.primaryContainer
+            else
+                MaterialTheme.colorScheme.surface
+        ),
+        border = if (isSelected)
+            BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
+        else null
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(dimensionResource(R.dimen.padding_medium))
+                .padding(16.dp)
         ) {
-            //icon
             Image(
-                modifier = Modifier
-                    .size(dimensionResource(R.dimen.icon_size))
-                ,
+                modifier = Modifier.size(40.dp),
                 painter = painterResource(motivations.motivationIconResourceId),
                 contentDescription = null
             )
-            //icon text
             Text(
                 text = stringResource(motivations.motivationNameId),
                 style = MaterialTheme.typography.labelMedium,
-                color = Color.Black,
                 modifier = Modifier.padding(start = 20.dp)
             )
         }

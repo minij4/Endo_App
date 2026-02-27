@@ -4,12 +4,13 @@ It is android application generated with kotlin + compose for upwork.com site fo
 
 ---
 
-## ✨ Functional
+## ✨ Structure
 
-- Onboarding screen
+- Onboarding screen (Relaunching the app and skipping onboarding doesn't work yet)
 - Languages choosing (back-end not working yet)
 - Motivations topics choosing (back-end not working yet)
 - Notification agreement
+- Home Screen (Not yet)
 
 ---
 
@@ -32,10 +33,12 @@ It is android application generated with kotlin + compose for upwork.com site fo
 
 ## Launching app
 
-### 1. Clone the Repository
+#### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/minij4/Endo_App
 ```
 
-### 2. Start a project in Android Studio app by presing green triangle in the top
+#### 2. Start a project in Android Studio app by presing green triangle in the top
+
+## Video of the final app : (not yet)
