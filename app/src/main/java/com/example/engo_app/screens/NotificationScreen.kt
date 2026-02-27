@@ -1,5 +1,9 @@
 package com.example.engo_app.screens
 
+import android.Manifest
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -9,10 +13,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,100 +47,48 @@ import com.example.engo_app.ui.theme.EngoBlue
 fun NotificationScreen(navController: NavController) {
     val routes = NavRoutes()
 
-    Column(modifier = Modifier
+    Scaffold { padding ->
+
+        Column(modifier = Modifier
         .fillMaxSize()
+        .padding(padding)
         .padding(30.dp)
-    ) {
-        BackButton({ navController.popBackStack() })
+         ) {
+            BackButton({ navController.popBackStack() })
 
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Row(
-            modifier = Modifier,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-
-
-            Image(
-                modifier = Modifier.size(dimensionResource(R.dimen.logo_pic_size_small)),
-                painter = painterResource(R.drawable.engo_logo2),
-                contentDescription = "ENGO app logo"
-            )
-
-            Box(
-                modifier = Modifier
-                    .background(
-                        color = Color(0xFFEDEDED),
-                        shape = RoundedCornerShape(16.dp)
-                    )
-                    .padding(horizontal = 16.dp, vertical = 12.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.notification_subtitle),
-                    color = Color.Black,
-                    fontSize = 16.sp
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(100.dp))
-
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .background(
-                    color = Color(0xFFEDEDED),
-                    shape = RoundedCornerShape(16.dp)
-                )
-                .padding(horizontal = 16.dp, vertical = 12.dp)
-        ) {
-            Text(
-                text = stringResource(R.string.notification_agreement),
-                style = MaterialTheme.typography.displayMedium,
-                color = Color.Black,
-                fontSize = 16.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(20.dp)
-            )
-            Button(
-                onClick = {
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.White,
-                    contentColor = EngoBlue
-                ),
-                modifier = Modifier
-                    .fillMaxWidth(0.9f)
-                    .height(56.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.notification_agree),
-                    style = MaterialTheme.typography.titleMedium
-                )
-            }
             Spacer(modifier = Modifier.height(10.dp))
-            Button(
-                onClick = {
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.White,
-                    contentColor = Color.Gray
-                ),
-                modifier = Modifier
-                    .fillMaxWidth(0.9f)
-                    .height(56.dp)
+
+            Row(
+                modifier = Modifier,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = stringResource(R.string.notification_disagree),
-                    style = MaterialTheme.typography.titleMedium
+
+
+                Image(
+                    modifier = Modifier.size(dimensionResource(R.dimen.logo_pic_size_small)),
+                    painter = painterResource(R.drawable.engo_logo2),
+                    contentDescription = "ENGO app logo"
                 )
+
+                Box(
+                    modifier = Modifier
+                        .background(
+                            color = Color(0xFFEDEDED),
+                            shape = RoundedCornerShape(16.dp)
+                        )
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.notification_subtitle),
+                        color = Color.Black,
+                        fontSize = 16.sp
+                    )
+                }
             }
+
+
+            NotificationPermissionScreen()
         }
-
-
-    
-
-
     }
 }
 
@@ -150,5 +110,56 @@ fun BackButton(
             contentDescription = "Back",
             tint = Color.Black
         )
+    }
+}
+
+//// NOTIFICATION PERMISSION
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun NotificationPermissionScreen() {
+    var permissionGranted by remember { mutableStateOf(false) }
+    var permissionRequested by remember { mutableStateOf(false) }
+
+    // Launcher for requesting permission
+    val requestPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        permissionGranted = isGranted
+        permissionRequested = true
+    }
+
+    LaunchedEffect(Unit) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            permissionGranted = true
+            permissionRequested = true
+        }
+    }
+
+    Spacer(modifier = Modifier.height(20.dp))
+
+
+    if (permissionRequested) {
+        Text(
+            text = if (permissionGranted) {
+                "Permission Granted"
+            } else {
+                "Permission Denied"
+            }
+        )
+    }
+
+
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun NotificationScreenPreview() {
+    ENGO_appTheme {
+        val navController = rememberNavController()
+        NotificationScreen(navController = navController)
     }
 }
