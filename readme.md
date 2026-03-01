@@ -1,4 +1,4 @@
-# 📱 Demo Endo App
+# 📱 Demo Engo App
 
 ![Kotlin](https://img.shields.io/badge/Kotlin-1.9-purple)
 ![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-UI-blue)
