@@ -18,11 +18,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.engo_app.data.Language
 import com.example.engo_app.data.languages
 import androidx.navigation.NavController
@@ -30,18 +34,21 @@ import androidx.navigation.compose.rememberNavController
 import com.example.engo_app.R
 import com.example.engo_app.components.ActionButton
 import com.example.engo_app.components.ListItem
-import com.example.engo_app.data.mainLanguage
+import com.example.engo_app.data.learningLanguage
 import com.example.engo_app.navigation.NavRoutes
 import com.example.engo_app.ui.theme.ENGO_appTheme
+import com.example.engo_app.viewmodel.UserPreferencesViewModel
 
 @Composable
 fun LanguagesScreen(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
+    val viewModel: UserPreferencesViewModel = viewModel()
+
     val routes = NavRoutes()
-    var selectedMainLanguage by remember { mutableStateOf<Language?>(null) }
-    var selectedLanguages by remember { mutableStateOf<Language?>(null) }
+    var selectedLearningLanguage by remember { mutableStateOf<Language?>(null) }
+    var selectedTranslationLanguage by remember { mutableStateOf<Language?>(null) }
 
     Scaffold(
         //BOTTOM BAR
@@ -58,7 +65,8 @@ fun LanguagesScreen(
                     navController = navController,
                     onClick = {
                         navController.navigate(routes.Motivation_Screen)
-                              },
+                        viewModel.saveLanguages(selectedLearningLanguage, selectedTranslationLanguage)
+                    },
                     modifier = modifier
                 )
             }
@@ -81,10 +89,10 @@ fun LanguagesScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             ListItem(
-                isSelected = selectedMainLanguage == mainLanguage,
-                onClick = { selectedMainLanguage = mainLanguage },
-                text = stringResource(mainLanguage.languageNameId),
-                image = painterResource(mainLanguage.languageIconResourceId),
+                isSelected = selectedLearningLanguage == learningLanguage,
+                onClick = { selectedLearningLanguage = learningLanguage },
+                text = stringResource(learningLanguage.languageNameId),
+                image = painterResource(learningLanguage.languageIconResourceId),
                 modifier = modifier
             )
 
@@ -103,8 +111,8 @@ fun LanguagesScreen(
             ) {
                 items(languages) {
                     ListItem(
-                        isSelected = selectedLanguages == it,
-                        onClick = { selectedLanguages == it },
+                        isSelected = selectedTranslationLanguage == it,
+                        onClick = { selectedTranslationLanguage = it },
                         text = stringResource(it.languageNameId),
                         image = painterResource(it.languageIconResourceId),
                         modifier = modifier

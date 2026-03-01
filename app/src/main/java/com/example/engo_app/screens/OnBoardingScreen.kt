@@ -52,7 +52,7 @@ fun OnBoardingScreen(
                     text = stringResource(R.string.confirm_button),
                     navController = navController,
                     onClick = {
-                        navController.navigate(routes.Motivation_Screen)
+                        navController.navigate(routes.Languages_Screen)
                     },
                     modifier = modifier
                 )
