@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.engo_app.R
@@ -38,12 +39,17 @@ import com.example.engo_app.data.Motivation
 import com.example.engo_app.data.motivations
 import com.example.engo_app.navigation.NavRoutes
 import com.example.engo_app.ui.theme.ENGO_appTheme
+import com.example.engo_app.viewmodel.UserPreferencesViewModel
 
 @Composable
 fun MotivationScreen(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
+    val viewModel: UserPreferencesViewModel = viewModel(
+        factory = UserPreferencesViewModel.Factory
+    )
+
     val routes = NavRoutes()
     val selectedMotivations = remember { mutableStateListOf<Motivation>() }
 
@@ -59,11 +65,14 @@ fun MotivationScreen(
                 // CONFIRM BUTTON ON THE BOTTOM
                 ActionButton(
                     text = stringResource(R.string.confirm_button),
-                    navController = navController,
                     onClick = {
-                        navController.navigate(routes.Notification_Screen)
-                    },
-                    modifier = modifier
+                        navController.navigate(routes.Notification_Screen) {
+                            launchSingleTop = true
+                            popUpTo("notification_screen") { inclusive = true }
+                        }
+                        val stringList = selectedMotivations.map { (it.motivationNameId).toString() }
+                        viewModel.saveMotivationList(stringList)
+                    }
                 )
             }
         }

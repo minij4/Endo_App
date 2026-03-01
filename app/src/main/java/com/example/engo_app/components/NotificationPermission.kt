@@ -18,7 +18,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.example.engo_app.data.saveNotificationPermission
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.engo_app.viewmodel.UserPreferencesViewModel
 import kotlinx.coroutines.launch
 
 
@@ -28,7 +29,9 @@ fun NotificationPermissionScreen() {
     var permissionGranted by remember { mutableStateOf(false) }
     var permissionRequested by remember { mutableStateOf(false) }
 
-
+    val viewModel: UserPreferencesViewModel = viewModel(
+        factory = UserPreferencesViewModel.Factory
+    )
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
 
@@ -39,9 +42,7 @@ fun NotificationPermissionScreen() {
         permissionGranted = isGranted
         permissionRequested = true
 
-        scope.launch {
-            saveNotificationPermission(context, isGranted)
-        }
+        viewModel.saveNotification(isGranted)
     }
 
     LaunchedEffect(Unit) {
@@ -51,9 +52,7 @@ fun NotificationPermissionScreen() {
             permissionGranted = true
             permissionRequested = true
 
-            scope.launch {
-                saveNotificationPermission(context, true)
-            }
+            viewModel.saveNotification(true)
         }
     }
 

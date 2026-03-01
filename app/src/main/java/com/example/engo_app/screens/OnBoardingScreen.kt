@@ -50,11 +50,12 @@ fun OnBoardingScreen(
                 // CONFIRM BUTTON ON THE BOTTOM
                 ActionButton(
                     text = stringResource(R.string.confirm_button),
-                    navController = navController,
                     onClick = {
-                        navController.navigate(routes.Languages_Screen)
-                    },
-                    modifier = modifier
+                        navController.navigate(routes.Languages_Screen) {
+                            launchSingleTop = true
+                            popUpTo("languages_screen") { inclusive = true }
+                        }
+                    }
                 )
             }
         }

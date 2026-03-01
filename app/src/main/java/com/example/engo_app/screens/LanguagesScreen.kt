@@ -18,14 +18,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.engo_app.data.Language
 import com.example.engo_app.data.languages
@@ -44,7 +41,9 @@ fun LanguagesScreen(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
-    val viewModel: UserPreferencesViewModel = viewModel()
+    val viewModel: UserPreferencesViewModel = viewModel(
+        factory = UserPreferencesViewModel.Factory
+    )
 
     val routes = NavRoutes()
     var selectedLearningLanguage by remember { mutableStateOf<Language?>(null) }
@@ -62,12 +61,16 @@ fun LanguagesScreen(
                 // CONFIRM BUTTON ON THE BOTTOM
                 ActionButton(
                     text = stringResource(R.string.confirm_button),
-                    navController = navController,
                     onClick = {
-                        navController.navigate(routes.Motivation_Screen)
-                        viewModel.saveLanguages(selectedLearningLanguage, selectedTranslationLanguage)
-                    },
-                    modifier = modifier
+                        navController.navigate(routes.Motivation_Screen) {
+                            launchSingleTop = true
+                            popUpTo("motivation_screen") { inclusive = true }
+                        }
+                        viewModel.saveLanguages(
+                            selectedLearningLanguage,
+                            selectedTranslationLanguage
+                        )
+                    }
                 )
             }
         }

@@ -19,7 +19,6 @@ Android demo application built with **Kotlin + Jetpack Compose** for Upwork clie
 - Language selection (UI ready, persistence planned)
 - Motivation topics selection (UI ready, persistence planned)
 - Notification permission screen
-- Home screen (planned)
 
 ---
 
@@ -30,7 +29,7 @@ Android demo application built with **Kotlin + Jetpack Compose** for Upwork clie
 - Material 3
 - StateFlow
 - Navigation Compose
-- DataStore (Preferences) – integration in progress
+- DataStore (Preferences)
 
 ---
 

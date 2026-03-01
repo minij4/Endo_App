@@ -20,9 +20,7 @@ import com.example.engo_app.ui.theme.EngoBlue
 @Composable
 fun ActionButton(
     text: String,
-    navController: NavController,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onClick: () -> Unit
 ) {
     val routes = NavRoutes()
     Button(
