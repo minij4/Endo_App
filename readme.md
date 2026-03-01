@@ -1,3 +1,4 @@
+# 📱 Demo Endo App
 
 ![Kotlin](https://img.shields.io/badge/Kotlin-1.9-purple)
 ![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-UI-blue)
@@ -7,45 +8,41 @@
 ![Gradle](https://img.shields.io/badge/Gradle-8.13%2B-blue)
 ![Android Studio](https://img.shields.io/badge/Android%20Studio-Giraffe%2B-yellow)
 
-
-
-
-# 📱 Demo Endo App 
-
-It is android application generated with kotlin + compose for upwork.com site for NewAge company for Tanav Patel.
+Android demo application built with **Kotlin + Jetpack Compose** for Upwork client  
+**NewAge (Tanav Patel)**.
 
 ---
 
-## ✨ Structure
+## ✨ Features
 
-- Onboarding screen (Relaunching the app and skipping onboarding doesn't work yet)
-- Languages choosing
-- Motivations topics choosing
-- Notification agreement
-- Home Screen (planned)
+- Onboarding flow
+- Language selection (UI ready, persistence planned)
+- Motivation topics selection (UI ready, persistence planned)
+- Notification permission screen
+- Home screen (planned)
 
 ---
 
-## 🛠️ Technologies
+## 🛠️ Tech Stack
 
 - Kotlin
 - Jetpack Compose
-- Material3
+- Material 3
 - StateFlow
 - Navigation Compose
-- DataStore (Preferences) (planned)
+- DataStore (Preferences) – integration in progress
 
 ---
 
 ## ⚙️ Requirements
 - **Android Studio** Giraffe or newer
-- **Gradle** 8.13+ (handled automatically by Android Studio)
+- **Gradle** 8.13+ (handled automatically)
 - **Minimum SDK:** 24
 - **Target SDK:** 34
 
 ---
 
-## Launching app
+## 🚀 Getting Started
 
 #### 1. Clone the Repository
 
@@ -55,12 +52,16 @@ git clone https://github.com/minij4/Endo_App
 #### 2. Open Android Studio
 * Select File → Open and choose the project folder
 
-#### 2. Sync Gradle
+#### 3. Sync Gradle
 * Android Studio will automatically sync Gradle dependencies
 * If prompted, install missing SDK components
 
-#### Run the app
+#### 4. Run the app
 * Select a device/emulator
 * Click Run ▶ or press Shift + F10
 
-## Video of the final app : (comming soon)
+
+---
+
+## 🎥 Demo Video
+Coming soon

@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -20,8 +21,8 @@ import java.io.IOException
 val Context.dataStore by preferencesDataStore(name = "onboardingsettings")
 
 object DataStoreKeys {
-    val LEARNING_LANGUAGE = stringPreferencesKey("learning_language")
-    val TRANSLATION_LANGUAGE = stringPreferencesKey("translation_language")
+    val LEARNING_LANGUAGE = intPreferencesKey("learning_language")
+    val TRANSLATION_LANGUAGE = intPreferencesKey("translation_language")
     val MOTIVATION_LIST= stringSetPreferencesKey("motivation_list")
     val NOTIFICATION = booleanPreferencesKey("notification")
 }
@@ -32,15 +33,27 @@ object DataStoreKeys {
             preferences[DataStoreKeys.NOTIFICATION] ?: false
         }
     }
-    // WRITE
-    suspend fun saveLearningLanguage(context: Context, learningLanguage: String) {
-        context.dataStore.edit { preferences ->
-            preferences[DataStoreKeys.LEARNING_LANGUAGE] = learningLanguage
+    fun getLearningLanguage(context: Context): Flow<Language?> {
+        return context.dataStore.data.map { preferences ->
+            val id = preferences[DataStoreKeys.LEARNING_LANGUAGE]
+            languages.find { it.languageNameId == id }
         }
     }
-    suspend fun saveTranslationLanguage(context: Context, translationLanguage: String) {
+    fun getTranslationLanguage(context: Context): Flow<Language?> {
+        return context.dataStore.data.map { preferences ->
+            val id = preferences[DataStoreKeys.TRANSLATION_LANGUAGE]
+            languages.find { it.languageNameId == id }
+        }
+    }
+    // WRITE
+    suspend fun saveLearningLanguage(context: Context, learningLanguage: Language) {
         context.dataStore.edit { preferences ->
-            preferences[DataStoreKeys.TRANSLATION_LANGUAGE] = translationLanguage
+            preferences[DataStoreKeys.LEARNING_LANGUAGE] = learningLanguage.languageNameId
+        }
+    }
+    suspend fun saveTranslationLanguage(context: Context, translationLanguage: Language) {
+        context.dataStore.edit { preferences ->
+            preferences[DataStoreKeys.TRANSLATION_LANGUAGE] = translationLanguage.languageNameId
         }
     }
     suspend fun saveMotivationList(context: Context, motivationList: List<String>) {

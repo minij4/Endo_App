@@ -1,7 +1,7 @@
 package com.example.engo_app.screens
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,15 +9,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -30,8 +27,8 @@ import com.example.engo_app.navigation.NavRoutes
 import com.example.engo_app.ui.theme.ENGO_appTheme
 import com.example.engo_app.ui.theme.EngoBlue
 import com.example.engo_app.ui.theme.EngoGray
-import androidx.compose.ui.text.TextStyle
 import androidx.navigation.compose.rememberNavController
+import com.example.engo_app.components.ActionButton
 
 
 @Composable
@@ -41,14 +38,34 @@ fun OnBoardingScreen(
 ) {
     val routes = NavRoutes()
 
-    Scaffold { innerPadding ->
+    Scaffold(
+        //BOTTOM BAR
+        bottomBar = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 24.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                // CONFIRM BUTTON ON THE BOTTOM
+                ActionButton(
+                    text = stringResource(R.string.confirm_button),
+                    navController = navController,
+                    onClick = {
+                        navController.navigate(routes.Motivation_Screen)
+                    },
+                    modifier = modifier
+                )
+            }
+        }
+    ) { padding ->
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(innerPadding),
+                .padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(150.dp))
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 // LOGO PIC
@@ -61,67 +78,25 @@ fun OnBoardingScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 // LOGO TEXT
-                OnboardingTextItem(
-                    textRes = R.string.onboarding_title,
-                    textStyle = MaterialTheme.typography.displayLarge,
+                Text(
+                    text = stringResource(R.string.onboarding_title),
+                    style = MaterialTheme.typography.displayLarge,
                     color = EngoBlue
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-
-                // subtitle text
-                OnboardingTextItem(
-                    textRes = R.string.onboarding_subtitle,
-                    textStyle = MaterialTheme.typography.displaySmall,
-                    color = EngoGray
-                )
-            }
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            // Button for starting application
-            Button(
-                // screen change to chossing languages screen
-                onClick = {
-                    navController.navigate(routes.Languages_Screen) {
-                        popUpTo(routes.OnBoarding_Screen) { inclusive = true }
-                    }
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = EngoBlue,
-                    contentColor = Color.White
-                ),
-                modifier = Modifier
-                    .fillMaxWidth(0.8f)  // 80% screen
-                    .height(56.dp)
-            ) {
+                // SUBTITLE TEXT
                 Text(
-                    text = stringResource(R.string.onboarding_start_button),
-                    style = MaterialTheme.typography.titleMedium
+                    text = stringResource(R.string.onboarding_subtitle),
+                    style = MaterialTheme.typography.displaySmall,
+                    textAlign = TextAlign.Center,
+                    color = EngoGray,
+                    modifier = modifier.fillMaxWidth(0.7f)
                 )
             }
-
-            Spacer(modifier = Modifier.height(32.dp))
         }
     }
-}
-
-@Composable
-fun OnboardingTextItem(
-    @StringRes textRes: Int,
-    textStyle: TextStyle,
-    color: Color = Color.Unspecified,
-    widthFraction: Float = 0.7f,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = stringResource(textRes),
-        style = textStyle,
-        modifier = modifier.fillMaxWidth(widthFraction),
-        textAlign = TextAlign.Center,
-        color = color
-    )
 }
 
 @Preview(showBackground = true)

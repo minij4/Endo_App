@@ -1,8 +1,5 @@
 package com.example.engo_app.screens
 
-
-
-
 import android.Manifest
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -38,6 +35,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.engo_app.R
+import com.example.engo_app.components.BackButton
+import com.example.engo_app.components.NotificationPermissionScreen
 import com.example.engo_app.data.saveNotificationPermission
 import com.example.engo_app.navigation.NavRoutes
 import com.example.engo_app.ui.theme.ENGO_appTheme
@@ -49,12 +48,12 @@ fun NotificationScreen(navController: NavController) {
     val routes = NavRoutes()
 
     Scaffold { padding ->
-
         Column(modifier = Modifier
         .fillMaxSize()
         .padding(padding)
         .padding(30.dp)
          ) {
+            // PREVIOUS SCREEN BUTTON
             BackButton({ navController.popBackStack() })
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -63,14 +62,13 @@ fun NotificationScreen(navController: NavController) {
                 modifier = Modifier,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
-
+                // LOGO
                 Image(
                     modifier = Modifier.size(dimensionResource(R.dimen.logo_pic_size_small)),
                     painter = painterResource(R.drawable.engo_logo2),
                     contentDescription = "ENGO app logo"
                 )
-
+                // LOGO TEXT
                 Box(
                     modifier = Modifier
                         .background(
@@ -86,87 +84,11 @@ fun NotificationScreen(navController: NavController) {
                     )
                 }
             }
-
-
+            // NOTIFICATIONS PERMISSION POP OUT TABLE
             NotificationPermissionScreen()
         }
     }
 }
-
-
-@Composable
-fun BackButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier
-            .size(48.dp)
-            .background(Color(0xFFF3F4F6), RoundedCornerShape(8.dp))
-            .clickable { onClick() },
-        contentAlignment = Alignment.Center
-    ) {
-        Icon(
-            imageVector = Icons.Default.ArrowBack,
-            contentDescription = "Back",
-            tint = Color.Black
-        )
-    }
-}
-
-//// NOTIFICATION PERMISSION
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun NotificationPermissionScreen() {
-    var permissionGranted by remember { mutableStateOf(false) }
-    var permissionRequested by remember { mutableStateOf(false) }
-
-
-    val scope = rememberCoroutineScope()
-    val context = LocalContext.current
-
-    // Launcher for requesting permission
-    val requestPermissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        permissionGranted = isGranted
-        permissionRequested = true
-
-        scope.launch {
-           saveNotificationPermission(context, isGranted)
-        }
-    }
-
-    LaunchedEffect(Unit) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-        } else {
-            permissionGranted = true
-            permissionRequested = true
-
-            scope.launch {
-                saveNotificationPermission(context, true)
-            }
-        }
-    }
-
-    Spacer(modifier = Modifier.height(20.dp))
-
-
-    if (permissionRequested) {
-        Text(
-            text = if (permissionGranted) {
-                "Permission Granted"
-            } else {
-                "Permission Denied"
-            }
-        )
-    }
-
-
-}
-
 
 @Preview(showBackground = true)
 @Composable
