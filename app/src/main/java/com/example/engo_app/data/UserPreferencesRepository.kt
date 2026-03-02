@@ -10,7 +10,6 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -67,7 +66,22 @@ class UserPreferencesRepository(
             val id = preferences[TRANSLATION_LANGUAGE]
             languages.find { it.languageNameId == id }
         }
+    val motivationsFlow: Flow<List<Motivation>> = dataStore.data
+        .catch {
+            if (it is IOException) {
+                Log.e(TAG, "Error reading preferences.", it)
+                emit(emptyPreferences())
+            } else {
+                throw it
+            }
+        }
+        .map { preferences ->
+            val savedIds = preferences[MOTIVATION_LIST] ?: emptySet()
 
+            motivations.filter {
+                savedIds.contains(it.motivationNameId.toString())
+            }
+        }
 
     // WRITE
     suspend fun saveSelectedLanguages(
@@ -75,22 +89,27 @@ class UserPreferencesRepository(
         translationLanguage: Language?
     ) {
         dataStore.edit { prefs ->
+            Log.d("DataStoreTest", "Saved languges")
             learningLanguage?.let {
                 prefs[LEARNING_LANGUAGE] = it.languageNameId
+                Log.d("DataStoreTest", "$it.languageNameId")
             }
             translationLanguage?.let {
                 prefs[TRANSLATION_LANGUAGE] = it.languageNameId
+                Log.d("DataStoreTest", "$it.languageNameId")
             }
         }
-        Log.d("DataStoreTest", "Saved languges")
+
     }
 
-    suspend fun saveMotivationList(motivationList: List<String>) {
+    suspend fun saveMotivationList(motivationList: List<Motivation>) {
+        val idSet = motivationList.map { it.motivationNameId.toString() }.toSet()
+
         dataStore.edit { preferences ->
-            preferences[MOTIVATION_LIST] = motivationList.toSet()
+            preferences[MOTIVATION_LIST] = idSet
         }
 
-        Log.d("DataStoreTest", "Saved motivations = $motivationList")
+        Log.d("DataStoreTest", "Saved motivations = $idSet")
     }
 
     suspend fun saveNotificationPermission(notificationEnabled: Boolean) {

@@ -70,8 +70,7 @@ fun MotivationScreen(
                             launchSingleTop = true
                             popUpTo("notification_screen") { inclusive = true }
                         }
-                        val stringList = selectedMotivations.map { (it.motivationNameId).toString() }
-                        viewModel.saveMotivationList(stringList)
+                        viewModel.saveMotivationList(selectedMotivations)
                     }
                 )
             }

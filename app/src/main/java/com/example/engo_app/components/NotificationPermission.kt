@@ -32,6 +32,7 @@ fun NotificationPermissionScreen() {
     val viewModel: UserPreferencesViewModel = viewModel(
         factory = UserPreferencesViewModel.Factory
     )
+
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
 

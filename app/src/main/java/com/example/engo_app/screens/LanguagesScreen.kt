@@ -112,12 +112,12 @@ fun LanguagesScreen(
             LazyColumn(
                 modifier = Modifier.weight(1f)
             ) {
-                items(languages) {
+                items(languages.drop(1)) { language ->
                     ListItem(
-                        isSelected = selectedTranslationLanguage == it,
-                        onClick = { selectedTranslationLanguage = it },
-                        text = stringResource(it.languageNameId),
-                        image = painterResource(it.languageIconResourceId),
+                        isSelected = selectedTranslationLanguage == language,
+                        onClick = { selectedTranslationLanguage = language },
+                        text = stringResource(language.languageNameId),
+                        image = painterResource(language.languageIconResourceId),
                         modifier = modifier
                     )
                 }

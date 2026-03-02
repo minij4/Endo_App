@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.engo_app.R
 import com.example.engo_app.components.BackButton
+import com.example.engo_app.components.DataStoreDebugScreen
 import com.example.engo_app.components.NotificationPermissionScreen
 import com.example.engo_app.navigation.NavRoutes
 import com.example.engo_app.ui.theme.ENGO_appTheme
@@ -30,7 +31,9 @@ import com.example.engo_app.viewmodel.UserPreferencesViewModel
 @Composable
 fun NotificationScreen(navController: NavController) {
     val routes = NavRoutes()
-
+    val viewModel: UserPreferencesViewModel = viewModel(
+        factory = UserPreferencesViewModel.Factory
+    )
 
     Scaffold { padding ->
         Column(modifier = Modifier
@@ -71,6 +74,9 @@ fun NotificationScreen(navController: NavController) {
             }
             // NOTIFICATIONS PERMISSION POP OUT TABLE
             NotificationPermissionScreen()
+
+            // DATA STORE OUTPUT
+            DataStoreDebugScreen(viewModel = viewModel)
         }
     }
 }

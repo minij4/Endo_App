@@ -11,7 +11,6 @@
 Android demo application built with **Kotlin + Jetpack Compose** for Upwork client  
 **NewAge (Tanav Patel)**.
 
----
 
 ## ✨ Features
 
@@ -20,7 +19,6 @@ Android demo application built with **Kotlin + Jetpack Compose** for Upwork clie
 - Motivation topics selection (UI ready, persistence planned)
 - Notification permission screen
 
----
 
 ## 🛠️ Tech Stack
 
@@ -31,7 +29,6 @@ Android demo application built with **Kotlin + Jetpack Compose** for Upwork clie
 - Navigation Compose
 - DataStore (Preferences)
 
----
 
 ## ⚙️ Requirements
 - **Android Studio** Giraffe or newer
@@ -39,7 +36,6 @@ Android demo application built with **Kotlin + Jetpack Compose** for Upwork clie
 - **Minimum SDK:** 24
 - **Target SDK:** 34
 
----
 
 ## 🚀 Getting Started
 
@@ -59,8 +55,6 @@ git clone https://github.com/minij4/Endo_App
 * Select a device/emulator
 * Click Run ▶ or press Shift + F10
 
-
----
 
 ## 🎥 Demo Video
 Coming soon
